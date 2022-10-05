@@ -123,7 +123,6 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -140,10 +139,13 @@ DATABASES["default"].update(db_from_env)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 # The absolute path to the directory where collectstatic will collect static files for deployment.
-# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# The URL to use when referring to static files (where they will be served from)
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_TMP = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+
+os.makedirs(STATIC_TMP, exist_ok=True)
+os.makedirs(STATIC_ROOT, exist_ok=True)
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
